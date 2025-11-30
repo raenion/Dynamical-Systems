@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 T = 2
-dt = 0.001
+dt = 0.001 # add autoset to stability bound for inappropriate values
 N = int(T/dt)+1
 nx = 100
 ny = 100
@@ -60,6 +60,8 @@ ax.set_zlabel('u')
 
 surf = ax.plot_surface(x,y,u[0], cmap='viridis', edgecolor='none')
 ax.set_zlim(np.min(u), np.max(u))
+
+# animation currently taxing/stuttery: maybe find alternative to surface plot
 
 def update(frames):
     global surf                                             # so that .remove doesnt think its trying to be applied to surf that is redefined after it?
