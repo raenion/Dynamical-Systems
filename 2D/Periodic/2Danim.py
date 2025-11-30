@@ -59,6 +59,8 @@ ax.set_zlabel('u')
 
 surf = ax.plot_surface(x,y,u[0], cmap='viridis', edgecolor='none')
 
+# there are currently stutters/mini-jumps/inconsistencies in the animation, why?
+
 def update(frames):
     global surf                                             # so that .remove doesnt think its trying to be applied to surf that is redefined after it?
     surf.remove()                                           # instead of ax.clear so update() doesnt have to redraw unnecessary things every time its called by funcanimation
