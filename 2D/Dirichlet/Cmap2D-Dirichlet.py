@@ -2,9 +2,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-T = 1    # unnecessary
-
-
 nx = 200
 ny = 200
 xvec = np.linspace(-1,1,nx)
@@ -42,6 +39,8 @@ def laplacian2D(mat):
     return vlaplacian + hlaplacian
 
 
+## Animation
+
 from matplotlib.animation import FuncAnimation
 
 ucurr = u0
@@ -51,7 +50,6 @@ fig, ax = plt.subplots(figsize=(12,7))
 im = ax.imshow(ucurr, extent=(-1, 1, -1, 1), origin='lower', cmap='jet', animated=True, vmin=0, vmax=100, interpolation='bilinear')
 
 plt.colorbar(im, ax=ax)
-
 
 stepsperframe = 30
 
