@@ -11,11 +11,11 @@ dy = 2/(ny-1)
 nu = 0.1
 dt = min(dx**2 / (4*nu), dy**2 / (4*nu))
 
+# Ensure stability condition is not violated by parameters:
+
 if dt > min(dx**2 / (4*nu), dy**2 / (4*nu)):
     dt = min(dx**2 / (4*nu), dy**2 / (4*nu))
     print(f'dt altered -> dt = {dt}')
-
-N = int(T/dt)+1
 
 x,y = np.meshgrid(xvec,yvec)
 
@@ -38,10 +38,11 @@ def laplacian2D(mat):
 
     return vlaplacian + hlaplacian
 
-
 ## Animation
 
 from matplotlib.animation import FuncAnimation
+
+# Initialization:
 
 ucurr = u0
 t = 0
