@@ -25,6 +25,8 @@ if dt > dx/c:
 
 #y0 = np.cos((x-L/2))
 
+# come up with cool initial conditions that display different behavior
+
 y0 = 0.1*np.exp(-0.1*(x-L/2)**2)
 
 y0_x = np.gradient(y0, dx)   # derivative of u0
