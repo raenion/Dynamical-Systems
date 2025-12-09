@@ -29,6 +29,8 @@ z = np.zeros((N, ny, nx))
 #z0 = np.zeros((ny,nx)) + 0.3*np.sin(x)*np.sin(y)
 z0 = np.exp(-((x - Lx/2)**2 + (y - Ly/2)**2))
 
+# add cool initial conditions 
+
 z[0] = z0
 
 z[0, 0, :] = 0
@@ -70,7 +72,7 @@ fig, ax = plt.subplots(subplot_kw={'projection': '3d'}, figsize=(12,8))
 
 surf = ax.plot_surface(x,y,z0)
 
-ax.set_zlim(-1,1)      # what happens if you remove, does it actually reset for each frame?
+ax.set_zlim(-1,1)      
 
 
 def update(frame):
