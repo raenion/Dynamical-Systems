@@ -59,6 +59,8 @@ ax2 = fig.add_subplot(1, 2, 2)
 ax2.plot(r, v, label='numerical solution')
 ax2.plot(analsolx(t), analsolv(t), label='analytical solution')
 
+# add x and y labels, plot titles
+
 ax1.legend() # move to good position
 ax2.legend() # move to good position
 
