@@ -8,3 +8,6 @@ is the only force acting on the system. This applies to systems such as the moti
 - point on standing wave
 - elastic single-mode cantilever
 - scotch yoke mechanism
+
+
+[no latex rendering native to github markdown??]: #
