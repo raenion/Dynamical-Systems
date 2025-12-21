@@ -1,6 +1,9 @@
 # 1D Heat Equation
 
-Solves u_t - nu * u_xx
+Solves
+$$
+u_t - \nu u_{xx} = 0.
+$$ 
 
 Design notes:
 - Stores full space–time solution for analysis and extensibility.
