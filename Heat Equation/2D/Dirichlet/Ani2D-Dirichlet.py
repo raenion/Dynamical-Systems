@@ -31,7 +31,7 @@ nu = 0.1
 
 # Initial Condition:
 
-u0 = np.sin(np.pi*(x**2 + y**2))
+u0 = np.sin(2*np.pi*x) + np.sin(2*np.pi*y)
 
 # Initialization:
 
@@ -94,7 +94,7 @@ def update(frames):
     surf = ax.plot_surface(x,y,u[frames], cmap='viridis', edgecolor='none')
     return surf,
 
-steps = 1
+steps = 10
 
 frames = range(0, len(u), steps)
 
