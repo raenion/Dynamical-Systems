@@ -1,29 +1,51 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-T = 2
-dt = 0.001 # add autoset to stability bound for inappropriate values
-N = int(T/dt)+1
+"""
+2D Heat Equation
+Domain: [-1, 1]x[-1, 1]
+BC: Dirichlet
+Scheme: Explicit Euler (FTCS)
+"""
+
+# Space:
+
 nx = 100
 ny = 100
 xvec = np.linspace(-1,1,nx)
 yvec = np.linspace(-1,1,ny)
 dx = 2/(nx-1)
 dy = 2/(ny-1)
+x, y = np.meshgrid(xvec, yvec)
+
+# Time:
+
+T = 2
+dt = 0.001 # add autoset to stability bound for inappropriate values
+N = int(T/dt) + 1
+t = np.zeros(N)
+
+# Physics:
+
 nu = 0.1
 
-x,y = np.meshgrid(xvec,yvec)
+# Initial Condition:
 
-t = np.zeros(N)
+u0 = np.sin(np.pi*(x**2 + y**2))
+
+# Initialization:
+
 u = np.zeros((N, ny, nx))
-
-u0 = np.sin(x*y)
 u[0] = u0
 
+# Storing initial boundaries to enforce Dirichlet conditions:
 
-# set boundary temperature for more flexibility for dirichlet enforcement (##)
-# e.g. c1, c2, c3, c4 np arrays of length nx or ny, giving maximally general manipulation of dirchlet BCs
+c1 = u[0, 0, :]
+c2 = u[0, :, -1]
+c3 = u[0, -1, :]
+c4 = u[0, :, 0]
 
+# 2D Laplacian, with zero-edges inkeeping with Dirichlet:
 
 def laplacian2D(mat):
 
@@ -35,19 +57,22 @@ def laplacian2D(mat):
 
     return vlaplacian + hlaplacian
 
+# Explicit Euler integration scheme 
 
 for i in range(N-1):
     t[i+1] = t[i] + dt
+    
     u[i+1] = u[i] + nu*laplacian2D(u[i])*dt
-    u[i+1, 0, :] = 0                                ##
-    u[i+1, -1,:] = 0                                ##
-    u[i+1, :,0] = 0                                 ##
-    u[i+1, :,-1] = 0                                ##
+    
+    u[i+1, 0, :] = c1
+    u[i+1, :, -1] = c2
+    u[i+1, -1, :] = c3
+    u[i+1, :, 0] = c4
 
+# Animation:
 
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
-
 
 plt.style.use('dark_background')
 
@@ -64,8 +89,8 @@ ax.set_zlim(np.min(u), np.max(u))
 # animation currently taxing/stuttery: maybe find alternative to surface plot
 
 def update(frames):
-    global surf                                             # so that .remove doesnt think its trying to be applied to surf that is redefined after it?
-    surf.remove()                                           # instead of ax.clear so update() doesnt have to redraw unnecessary things every time its called by funcanimation
+    global surf
+    surf.remove()
     surf = ax.plot_surface(x,y,u[frames], cmap='viridis', edgecolor='none')
     return surf,
 
