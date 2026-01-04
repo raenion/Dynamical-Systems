@@ -1,4 +1,3 @@
-
 """
 Earth orbiting Sun according to Newtonian gravity.
 Scheme: Velocity Verlet
@@ -56,8 +55,8 @@ ax.set_aspect('equal', 'box')
 ax.plot(0, 0, 'yo', label='Sun')
 ax.plot(r_earth[:,0], r_earth[:,1], label='Earth')
 
-ax.set_xlabel("x [m]")
-ax.set_ylabel("y [m]")
+ax.set_xlabel("x (m)")
+ax.set_ylabel("y (m)")
 ax.legend()
 
 plt.show()
