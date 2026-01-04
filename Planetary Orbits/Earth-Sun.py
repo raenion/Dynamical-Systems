@@ -5,17 +5,11 @@ Scheme: Velocity Verlet
 
 Notes:
 - Sun is fixed at origin due to Earth's comparatively negligible mass.
-- Motion occurs in a plane due to conservation of angular velocity, so we just take this as the xy-plane.
+- Motion occurs in a plane due to conservation of angular momentum, so we just take this as the xy-plane.
 """
-
 
 import numpy as np
 import matplotlib.pyplot as plt
-
-
-
-# we assume sun is fixed, i.e. immune to gravitational force of Earth
-# due to conservation of angular momentum orbit lies in a plane, say the xy plane
 
 T = 365*24*3600
 dt = 3600
@@ -23,7 +17,7 @@ N = int(T/dt) + 1
 
 G = 6.6734810e-11 # m^3 / (kg s^2)
 m_sun = 1.989e30 # kg
-R = 1.496e11 # m   (average radius of earth's orbit around sun)
+R = 1.496e11 # m (average radius of earth's orbit around sun)
 
 r0_earth = np.array([R, 0])
 v0_earth = np.array([0, 29.8e3])
@@ -59,8 +53,12 @@ fig, ax = plt.subplots(figsize=(8,8))
 
 ax.set_aspect('equal', 'box')
 
-ax.plot(r_earth[:,0], r_earth[:,1])
+ax.plot(0, 0, 'yo', label='Sun')
+ax.plot(r_earth[:,0], r_earth[:,1], label='Earth')
+
+ax.set_xlabel("x [m]")
+ax.set_ylabel("y [m]")
+ax.legend()
 
 plt.show()
-
 
