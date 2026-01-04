@@ -1,4 +1,13 @@
-# Earth around sun 
+
+"""
+Earth orbiting Sun according to Newtonian gravity.
+Scheme: Velocity Verlet
+
+Notes:
+- Sun is fixed at origin due to Earth's comparatively negligible mass.
+- Motion occurs in a plane due to conservation of angular velocity, so we just take this as the xy-plane.
+"""
+
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -16,9 +25,9 @@ G = 6.6734810e-11 # m^3 / (kg s^2)
 m_sun = 1.989e30 # kg
 R = 1.496e11 # m   (average radius of earth's orbit around sun)
 
-r0_earth = [R, 0]
-v0_earth = [0, 29.8e3]
-r0_sun = [0, 0]
+r0_earth = np.array([R, 0])
+v0_earth = np.array([0, 29.8e3])
+r0_sun = np.array([0, 0])
 
 r_earth = np.zeros((N,2))
 v_earth = np.zeros((N,2))
@@ -33,6 +42,8 @@ norm = np.linalg.norm
 
 
 def gravitational_acceleration(r1, r2, m2):
+
+    # Acceleration of a body at r1 due to gravity from a mass m2 at r2.
 
     return G*m2*(r2 - r1)/(norm(r2 - r1)**3)
 
