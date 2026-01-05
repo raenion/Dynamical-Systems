@@ -50,7 +50,7 @@ y0 = np.cos((np.pi/10*(x-L/2)))
 
 y[0] = y0
 
-y[1] = y0
+y[1] = y0 # Zero-velocity initial condition: y(t=0) = y(t=dt)
 
 
 def laplacian1D(vec):
@@ -61,7 +61,12 @@ def laplacian1D(vec):
 
     return newvec
 
+# Solver:
+
+
 for i in range(1, N-1):
+
+    # Note that Dirichlet BCs are implicitly satisfied by this scheme and the definition of laplacian1D.
     
     t[i] = t[i-1] + dt
     
