@@ -1,20 +1,27 @@
-# saving values
-# Domain [0, Lx]x[0, Ly]
-# di
+"""
+2D Wave Equation Solver using Finite Differences
+
+System: ∂²z/∂t² = c²(∂²z/∂x² + ∂²z/∂y²)
+
+Domain: [0, Lx]x[0, Ly]
+
+Scheme: Explicit central difference in time and space
+
+Boundary conditions: Dirichlet (Fixed Ends)
+
+Notes:
+    - animation
+    - full stored solution (for analysis projects)
+"""
 
 import numpy as np
 
-
-T = 3
-dt = 0.0001
-N = int(T/dt) + 1
-c = 150
+# Space: 
 
 Lx = 3*np.pi
 Ly = 3*np.pi
 nx = 80
 ny = 80
-
 dx = Lx/(nx-1)
 dy = Ly/(ny-1)
 
@@ -23,13 +30,28 @@ yvec = np.linspace(0, Ly, ny)
 
 x,y = np.meshgrid(xvec, yvec)
 
+# Time:
+
+T = 3
+dt = 0.0001
+N = int(T/dt) + 1
 t = np.zeros(N)
+
+# Physics:
+
+c = 150
+
+
+
+
+# Initialization:
+
 z = np.zeros((N, ny, nx))
+
+## Some initial conditions:
 
 #z0 = np.zeros((ny,nx)) + 0.3*np.sin(x)*np.sin(y)
 z0 = np.exp(-((x - Lx/2)**2 + (y - Ly/2)**2))
-
-# add cool initial conditions 
 
 z[0] = z0
 
@@ -38,7 +60,7 @@ z[0, -1, :] = 0
 z[0, :, 0] = 0
 z[0, :, -1] = 0
 
-v0 = np.zeros((ny, nx)) #+ 0.1   # initial velocity
+v0 = np.zeros((ny, nx)) # initial velocity
 
 z[1] = z0 #+ v0*dt
 
