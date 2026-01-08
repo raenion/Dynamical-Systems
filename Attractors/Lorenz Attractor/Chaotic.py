@@ -1,15 +1,17 @@
+"""
+System: Lorenz Attractor
+
+It also visualizes:
+1. The two trajectories in 3D phase space
+2. The time evolution of the distance between trajectories
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 
 norm = np.linalg.norm
 
-T = 35
-dt = 0.001
-N = int(T/dt) + 1
-
-sigma = 10
-rho = 28
-beta = 8/3
+# Space:
 
 x1 = np.zeros(N)
 y1 = np.zeros(N)
@@ -19,7 +21,22 @@ x2 = np.zeros(N)
 y2 = np.zeros(N)
 z2 = np.zeros(N)
 
+# Time:
+
+T = 35
+dt = 0.001
+N = int(T/dt) + 1
 t = np.zeros(N)
+
+# System parameters:
+
+## Well-known butterfly attractor parameters:
+
+sigma = 10
+rho = 28
+beta = 8/3
+
+# Initial conditions:
 
 initial_condition1 = [15, 3, 10]
 initial_condition2 = [15, 3, 10.1]
@@ -30,8 +47,9 @@ x1[0], y1[0], z1[0] = initial_condition1
 x2[0], y2[0], z2[0] = initial_condition2
 
 
-for x,y,z in zip([x1,x2], [y1, y2], [z1, z2]):
+# Runge-Kutta 4 integration scheme:
 
+for x,y,z in zip([x1,x2], [y1, y2], [z1, z2]):
 
     for i in range(N-1):
 
@@ -56,6 +74,8 @@ for x,y,z in zip([x1,x2], [y1, y2], [z1, z2]):
         y[i+1] = y[i] + (k1y + 2*k2y + 2*k3y + k4y)*dt/6
         
         z[i+1] = z[i] + (k1z + 2*k2z + 2*k3z + k4z)*dt/6
+
+# Individual coordinate distances between two tracked points:
 
 xdiff = np.zeros(N)
 ydiff = np.zeros(N)
