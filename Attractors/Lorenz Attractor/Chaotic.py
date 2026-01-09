@@ -11,6 +11,13 @@ import matplotlib.pyplot as plt
 
 norm = np.linalg.norm
 
+# Time:
+
+T = 35
+dt = 0.001
+N = int(T/dt) + 1
+t = np.zeros(N)
+
 # Space:
 
 x1 = np.zeros(N)
@@ -20,13 +27,6 @@ z1 = np.zeros(N)
 x2 = np.zeros(N)
 y2 = np.zeros(N)
 z2 = np.zeros(N)
-
-# Time:
-
-T = 35
-dt = 0.001
-N = int(T/dt) + 1
-t = np.zeros(N)
 
 # System parameters:
 
@@ -138,15 +138,23 @@ from matplotlib.animation import FuncAnimation
 
 (line1,) = ax1.plot([],[],[], color='blue', linewidth=0.5)
 (line2,) = ax1.plot([],[],[], color='yellow', linewidth=0.5)
-(line3,) = ax2.plot([], [])
-(line4,) = ax2.plot([], [], color='red', linewidth=0.5)
-(line5,) = ax2.plot([], [], color='green', linewidth=0.5)
-(line6,) = ax2.plot([], [], color='blue', linewidth=0.5)
+(line3,) = ax2.plot([], [], label=r'$\sqrt{(\Delta x)^2 + (\Delta y)^2 + (\Delta z)^2}$')
+(line4,) = ax2.plot([], [], color='red', linewidth=0.5, label='|Δx|')
+(line5,) = ax2.plot([], [], color='green', linewidth=0.5, label='|Δy|')
+(line6,) = ax2.plot([], [], color='blue', linewidth=0.5, label='|Δz|')
 
 (endpoint1,) = ax1.plot(x1[0], y1[0], z1[0], marker='o', markersize=3, color='blue')
 (endpoint2,) = ax1.plot(x2[0], y2[0], z2[0], marker='o', markersize=3, color='yellow')
 
 ax2.set_xlim(0,5)
+
+ax2.legend(
+    loc='upper left',
+    frameon=True,
+    facecolor='black',
+    edgecolor='white',
+    fontsize=9
+)
 
 def update(frame):
     set_xyz(line1, x1[:frame], y1[:frame], z1[:frame])
