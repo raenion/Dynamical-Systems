@@ -85,9 +85,9 @@ for i in range(N-1):
 
 # Plotting:
 
-fig = plt.figure(figsize=(14, 7))
+fig = plt.figure(figsize=(12, 8))
 
-ax1 = fig.add_subplot(1, 2, 1, projection='3d')
+ax1 = fig.add_subplot(1, 1, 1, projection='3d')
 
 ax1.grid(False)
 
