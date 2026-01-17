@@ -27,10 +27,15 @@ t = np.zeros(N)
 
 # Physics:
 
-mu = 0.5
+mu = 0.1
 
+# NOTE:
+# Explicit Euler requires small dt for stability,
+# especially when advection dominates diffusion.
 
-# Initialization
+assert dt <= dx**2/(2*mu), "Time step may be unstable"
+
+# Initialization:
 
 u = np.zeros((N, nx))
 
@@ -48,31 +53,43 @@ def laplacian1D(vec):
     # Implicitly Dircihlet by keeping boundaries zero.
 
     newvec = np.zeros_like(vec)
-
     newvec[1:-1] = (vec[:-2] - 2*vec[1:-1] + vec[2:])/dx**2
 
     return newvec
 
+def gradient1D(vec):
+
+    grad = np.zeros_like(vec)
+    grad[1:-1] = (vec[2:] - vec[:-2])/(2*dx)
+
+    return grad
+
 # 1st order Euler solver loop:
 
 for i in range(N-1):
+
+    ux = gradient1D(u[i])
+
+    uxx = laplacian1D(u[i])
+
+    u[i+1] = u[i] + dt * (
+        - u[i] * ux     # nonlinear advection
+        + mu * uxx      # linear diffusion
+    )
     
     t[i+1] = t[i] + dt
-    u[i+1] = u[i] + mu*laplacian1D(u[i])*dt - u[i]*np.gradient(u[i], dx)*dt
-
     
-
 # Plotting:
 
 fig, ax = plt.subplots()
 
-plottimes = [0, 1, 2, 3]
+plottimes = [0, 0.25, 0.5, 1, 2, 3]
 
 for time in plottimes:
     bestindex = np.argmin(np.abs(t - time))
     ax.plot(x, u[bestindex], label=f't = {time:.2f}')
-    ax.legend()
 
+ax.set_xlabel("x")
+ax.set_ylabel("u(x,t)")
 plt.legend()
-
 plt.show()
