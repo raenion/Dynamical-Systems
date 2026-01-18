@@ -5,7 +5,7 @@ Solves the 1D viscous Burgers' equation:
 using:
 - Explicit Euler time stepping
 - Second-order finite differences
-- Dirichlet boundary conditions (implicit: u=0 at boundaries)
+- Dirichlet boundary conditions (implicit: no acceleration at boundaries)
 """
 
 import numpy as np
@@ -74,7 +74,7 @@ for i in range(N-1):
 
     u[i+1] = u[i] + dt * (
         - u[i] * ux     # nonlinear advection
-        + mu * uxx      # linear diffusion
+        + mu * uxx      # (linear) diffusion
     )
     
     t[i+1] = t[i] + dt
