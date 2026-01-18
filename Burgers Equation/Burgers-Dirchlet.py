@@ -22,7 +22,7 @@ dx = 2 * L / (nx - 1)
 
 # Time:
 
-T = 2
+T = 4
 dt = 0.00031
 N = int(T / dt) + 1
 t = np.zeros(N)
@@ -30,6 +30,10 @@ t = np.zeros(N)
 # Physics:
 
 mu = 0.1
+
+
+assert dt <= dx**2/(2*mu), "Time step may be unstable"
+
 
 # Initialization:
 
@@ -105,7 +109,7 @@ ax.set_ylim(np.min(u), np.max(u))
 
 line, = ax.plot(x, u[0])
 
-steps = 10
+steps = 100
 frames = range(0, N, steps)
 
 def update(frame):
